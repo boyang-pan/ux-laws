@@ -8,6 +8,8 @@ const categoryColors: Record<UXLaw["category"], string> = {
   Behavior: "bg-zinc-100 text-zinc-500",
   Design: "bg-zinc-100 text-zinc-500",
   Memory: "bg-zinc-100 text-zinc-500",
+  Attention: "bg-zinc-100 text-zinc-500",
+  Emotion: "bg-zinc-100 text-zinc-500",
 }
 
 interface LawCardProps {

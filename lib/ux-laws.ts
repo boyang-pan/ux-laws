@@ -1,7 +1,7 @@
 export interface UXLaw {
   id: string
   name: string
-  category: "Cognitive" | "Perception" | "Behavior" | "Design" | "Memory"
+  category: "Cognitive" | "Perception" | "Behavior" | "Design" | "Memory" | "Attention" | "Emotion"
   tagline: string
   description: string
   examples: { title: string; detail: string }[]
@@ -961,6 +961,398 @@ export const uxLaws: UXLaw[] = [
     userImpact:
       "Uniform effort allocation is a trap: polishing a rarely-used feature equally with a core workflow wastes resources and delays improvements where they matter most. Data-driven application of the Pareto Principle directs design and engineering effort toward the highest-leverage improvements.",
     origin: "Vilfredo Pareto, 1896; Joseph Juran, 1941",
+  },
+  {
+    id: "dual-process-theory",
+    name: "Dual Process Theory",
+    category: "Cognitive",
+    tagline: "Fast intuitive thinking (System 1) and slow deliberate thinking (System 2) shape every user decision.",
+    description:
+      "Dual Process Theory, popularized by Daniel Kahneman in Thinking, Fast and Slow, describes two modes of cognition. System 1 is fast, automatic, emotional, and largely unconscious — it drives snap judgments, pattern recognition, and habitual behavior. System 2 is slow, deliberate, effortful, and logical — it handles novel problems, complex reasoning, and careful decision-making. Most user interactions rely heavily on System 1. When interfaces require System 2 thinking for routine tasks, they feel hard — creating friction, errors, and frustration. Good UX minimizes unnecessary System 2 load while reserving it for decisions that genuinely require deliberation.",
+    examples: [
+      {
+        title: "Form defaults and pre-fills",
+        detail:
+          "A checkout form that pre-fills shipping address from account data lets System 1 handle routine confirmation — the user glances, recognizes the familiar address, and taps confirm. Forcing users to re-type it each time activates System 2, slowing completion and increasing abandonment.",
+      },
+      {
+        title: "Warning dialog fatigue",
+        detail:
+          "When every destructive action (delete, archive, close) presents an identical confirmation dialog, users habituate and click through reflexively using System 1, defeating the purpose of the dialog. Reserve high-friction confirmation for irreversible high-stakes actions to keep System 2 engaged when it matters.",
+      },
+      {
+        title: "Navigation patterns",
+        detail:
+          "A consistent global navigation that never changes lets returning users operate on autopilot — System 1 knows where settings live without thinking. Redesigning navigation forces System 2 re-learning, causing disorientation even among experienced users.",
+      },
+    ],
+    userImpact:
+      "Interfaces that respect System 1 feel effortless; those that fight it feel cognitively expensive. Design for automatic, pattern-based interaction for routine tasks, and use friction intentionally — only when deliberation genuinely serves the user.",
+    origin: "Daniel Kahneman, 2011; Stanovich & West, 2000",
+  },
+  {
+    id: "mental-model",
+    name: "Mental Model",
+    category: "Cognitive",
+    tagline: "Users' internal representation of how a system works determines how they interact with it.",
+    description:
+      "A mental model is the internal representation a user builds of how a system, product, or process works — based on past experience, analogies, and observed behavior. Users constantly form and apply mental models when interacting with interfaces: they predict what a button will do, where a setting will be found, and what will happen after an action. When the interface's actual behavior matches the user's mental model, interaction feels natural. When it diverges — a setting is where users don't expect it, an action has an unexpected consequence — users feel confused, make errors, and lose trust. Don Norman's concept of the 'system image' describes how the designer communicates the correct mental model through interface design.",
+    examples: [
+      {
+        title: "Desktop file metaphor",
+        detail:
+          "Early desktop computing adopted the physical desk metaphor — files, folders, a trash can — because users already had a mental model for organizing paper documents. The interface succeeded by mapping to an existing cognitive structure rather than requiring users to learn an entirely new one.",
+      },
+      {
+        title: "Swipe to delete",
+        detail:
+          "Users who learned swipe-to-delete in one app bring that mental model to every list interface they encounter. Apps that implement the gesture behave as expected; apps that don't — or that assign swipe to a different action — violate the model and generate errors and frustration.",
+      },
+      {
+        title: "Shopping cart persistence",
+        detail:
+          "Users expect a shopping cart to persist across sessions, matching their mental model of a physical cart that holds items until checkout. E-commerce sites that silently clear carts after logout violate this model, causing users to abandon when they return to find their selections gone.",
+      },
+    ],
+    userImpact:
+      "Interfaces that align with user mental models require less learning, generate fewer errors, and feel intuitive. Interfaces that violate mental models demand explicit re-education — documentation, onboarding, tooltips — and still generate persistent confusion from users who revert to their prior model.",
+    origin: "Kenneth Craik, 1943; Don Norman, 1983",
+  },
+  {
+    id: "law-of-figure-ground",
+    name: "Law of Figure/Ground",
+    category: "Perception",
+    tagline: "The eye separates a visual scene into a foreground subject and a background — they cannot be perceived simultaneously.",
+    description:
+      "The Law of Figure/Ground is a Gestalt principle describing how the visual system automatically separates a scene into two regions: the figure (the focal object, perceived as being in front) and the ground (the background, perceived as behind or surrounding). The two regions are mutually exclusive — what we perceive as figure cannot simultaneously be seen as ground. This principle explains why visual hierarchy works: clearly differentiating foreground content from the background makes it immediately legible, while ambiguous figure/ground relationships create confusion. In UI design, figure/ground is manipulated through contrast, shadow, blur, and color to make interactive elements emerge from the surrounding layout.",
+    examples: [
+      {
+        title: "Modal dialogs and overlays",
+        detail:
+          "A modal dialog uses a darkened, blurred, or faded background overlay to push the page content into the 'ground' role and the dialog into the 'figure' role. Without the overlay, the dialog competes with the page for attention; with it, the hierarchy is unambiguous.",
+      },
+      {
+        title: "Card elevation and shadow",
+        detail:
+          "Cards with subtle drop shadows appear to float above the page surface, establishing them as figure elements against the page ground. Remove the shadow and the card flattens into the background, losing its perceived affordance as a distinct interactive object.",
+      },
+      {
+        title: "Placeholder text legibility",
+        detail:
+          "An input field with very low contrast between placeholder text and background collapses the figure/ground distinction — the text blends into the field background. Increasing the contrast makes the placeholder text clearly readable as figure against the input field ground.",
+      },
+    ],
+    userImpact:
+      "Clear figure/ground separation reduces the visual effort required to identify what is interactive, what is content, and what is background. Ambiguous figure/ground relationships increase scanning time, generate errors, and make interfaces feel visually noisy even when the layout is technically uncluttered.",
+    origin: "Gestalt Psychology; Edgar Rubin, 1915",
+  },
+  {
+    id: "law-of-closure",
+    name: "Law of Closure",
+    category: "Perception",
+    tagline: "The mind automatically completes incomplete shapes, filling in gaps to perceive a whole.",
+    description:
+      "The Law of Closure is a Gestalt principle stating that the human visual system tends to perceive incomplete figures as complete by mentally filling in missing parts. When presented with a shape that has gaps, the brain automatically 'closes' the contour and perceives the whole form. This cognitive shortcut allows recognition of partial or degraded visual information. In UI design, closure enables designers to imply shapes and containers without drawing every border — reducing visual clutter while maintaining perceived structure. It is also the reason partial content at the edge of a scroll container effectively communicates 'more content exists here'.",
+    examples: [
+      {
+        title: "Carousel peek pattern",
+        detail:
+          "A horizontal card carousel that deliberately cuts the last visible card at the screen edge — showing only half of it — exploits closure to imply a complete card beyond the viewport. Users perceive the partial card as a whole object that continues off-screen, signaling that scrolling will reveal more without any explicit 'scroll for more' instruction.",
+      },
+      {
+        title: "Icon recognition",
+        detail:
+          "Many widely-used icons (hamburger menu, share symbol, play button) are instantly recognizable despite being composed of simple geometric primitives with visible negative space between them. Closure allows the brain to perceive them as unified symbols rather than disconnected lines or shapes.",
+      },
+      {
+        title: "Borderless grouping",
+        detail:
+          "A settings panel that groups related options with whitespace and a shared background, without drawing explicit dividing lines, relies on closure to create the perception of a contained section. Users perceive the group as a bounded region even though no border is drawn.",
+      },
+    ],
+    userImpact:
+      "Applying closure reduces visual noise by eliminating redundant borders, lines, and separators while maintaining perceived structure. Deliberate use of partial visibility at scroll edges effectively communicates that content continues, increasing scroll initiation without requiring explicit instructional cues.",
+    origin: "Gestalt Psychology; Max Wertheimer, 1923",
+  },
+  {
+    id: "forgetting-curve",
+    name: "Forgetting Curve",
+    category: "Memory",
+    tagline: "Memory retention decays exponentially without reinforcement — most learning is lost within 24 hours.",
+    description:
+      "The Forgetting Curve, discovered by Hermann Ebbinghaus in 1885 through systematic self-experimentation, describes the exponential rate at which information is lost from memory when there is no attempt to retain it. Ebbinghaus found that roughly 50% of new information is forgotten within an hour, 70% within 24 hours, and up to 90% within a week without reinforcement. The curve flattens with each spaced repetition — re-encountering information resets the decay rate and strengthens the memory trace. For UX and product design, the forgetting curve explains why users forget how to use features they rarely encounter, why onboarding must not frontload all information, and why progressive disclosure and contextual reminders outperform comprehensive upfront tutorials.",
+    examples: [
+      {
+        title: "Onboarding tooltip timing",
+        detail:
+          "A productivity app that shows all onboarding tips in a single first-launch walkthrough will find that most users have forgotten 80% of those tips by their second session. Spreading tips across the first week of use, triggered at the relevant moment of first feature encounter, aligns with the memory curve and produces dramatically higher feature adoption.",
+      },
+      {
+        title: "Rarely-used feature discoverability",
+        detail:
+          "A power feature used monthly — like exporting data — will be forgotten by most users between uses. Contextual reminders or prominent affordances at the point of need (e.g., 'Export your data before your subscription ends') are more effective than assuming users remember a setting they saw in onboarding six months ago.",
+      },
+      {
+        title: "Password and pattern re-entry",
+        detail:
+          "Security patterns, PIN codes, and complex passwords are subject to the forgetting curve. Users who set a pattern and return to an app three months later are statistically likely to have forgotten it. Designing recovery flows as first-class experiences — not afterthoughts — acknowledges the reality of memory decay.",
+      },
+    ],
+    userImpact:
+      "Information presented once is largely lost. Features that require memory of a past tutorial will be used by a fraction of users. Design systems that surface the right information at the right moment, repeat critical guidance at appropriate intervals, and never assume users remember what they were told during initial onboarding.",
+    origin: "Hermann Ebbinghaus, 1885",
+  },
+  {
+    id: "satisficing",
+    name: "Satisficing",
+    category: "Behavior",
+    tagline: "Users accept the first 'good enough' option rather than searching for the optimal one.",
+    description:
+      "Satisficing — a portmanteau of 'satisfy' and 'suffice' coined by Herbert Simon — describes the decision strategy in which a person selects the first option that meets a minimum acceptable threshold, rather than exhaustively evaluating all options to find the best one. Simon argued that humans are bounded by limited cognitive resources, time, and information, making optimization irrational in most real-world contexts. Satisficing is rational given these constraints. In UX, satisficing explains why users click the first plausible search result rather than reading all results, why they use the feature they discovered first even if a better one exists, and why default settings are rarely changed.",
+    examples: [
+      {
+        title: "Search result selection",
+        detail:
+          "Eye-tracking studies consistently show that users scan search results top-to-bottom and click the first result that seems relevant enough — not the best possible result. This is satisficing in practice: the first 'good enough' option wins, regardless of the quality of results below it.",
+      },
+      {
+        title: "Default setting retention",
+        detail:
+          "The vast majority of users never change default settings. When a default is 'good enough' — even if not optimal for a given user — the satisficing heuristic kicks in: changing settings requires cognitive effort and the default already crosses the acceptable threshold, so no change is made.",
+      },
+      {
+        title: "Navigation path persistence",
+        detail:
+          "A user who discovers a longer but familiar path to a feature will continue using it indefinitely if it's good enough, even after a shortcut is introduced. The known path satisfices; the effort to learn the new shortcut doesn't feel worth the marginal gain.",
+      },
+    ],
+    userImpact:
+      "Users will not hunt for your best feature if they've found one that's sufficient. Place the most valuable options first, make defaults genuinely good, and don't hide key functionality below the fold or behind menus — because users stop looking once a satisficing option is found.",
+    origin: "Herbert Simon, 1956",
+  },
+  {
+    id: "scarcity-principle",
+    name: "Scarcity Principle",
+    category: "Behavior",
+    tagline: "Perceived scarcity increases desirability — limited availability or urgency drives action.",
+    description:
+      "The Scarcity Principle, documented by Robert Cialdini in Influence (1984), states that people assign greater value to things that are — or appear to be — rare, dwindling, or time-limited. Scarcity triggers loss aversion: the fear of missing out on something valuable feels psychologically stronger than the equivalent gain. This is why 'Only 3 left in stock', 'Offer ends in 2 hours', and 'Limited edition' are so effective at accelerating decisions. In UX and product design, scarcity signals can legitimately accelerate conversion for real constraints, but when fabricated or misused they erode trust and generate backlash.",
+    examples: [
+      {
+        title: "Hotel and flight inventory indicators",
+        detail:
+          "Booking platforms showing 'Only 2 rooms left at this price' or 'Last 4 seats' communicate real inventory constraints while triggering the scarcity response. Users who were passively browsing shift to active decision-making when they perceive that delayed action risks losing the option entirely.",
+      },
+      {
+        title: "Limited-time offer countdown",
+        detail:
+          "A countdown timer on a promotional offer — 'Price reverts in 3:42:17' — creates temporal scarcity that increases urgency. Research shows that countdowns increase conversion rates significantly versus static price displays, even when the user already intended to purchase.",
+      },
+      {
+        title: "Beta access and waitlists",
+        detail:
+          "Products that launch with restricted access and public waitlists leverage scarcity to build perceived value before wide availability. Being 'selected' from a waitlist creates a sense of exclusivity — users value the product more because access was limited, even if they had no prior opinion of it.",
+      },
+    ],
+    userImpact:
+      "Scarcity signals can legitimately accelerate genuine decisions by surfacing real constraints users would want to know about. Fabricated scarcity — fake countdown timers, false low-stock warnings — generates short-term conversion at the cost of long-term trust and brand reputation.",
+    origin: "Robert Cialdini, 1984",
+  },
+  {
+    id: "endowment-effect",
+    name: "Endowment Effect",
+    category: "Behavior",
+    tagline: "People place higher value on things they own than identical things they don't.",
+    description:
+      "The Endowment Effect, identified by behavioral economist Richard Thaler and later studied extensively by Kahneman, Knetsch, and Thaler, describes the tendency for people to value something more highly simply because they own or possess it. In classic experiments, participants who were given a coffee mug demanded significantly more to sell it than they would willingly pay to buy an identical one. Ownership creates an irrational attachment that inflates perceived value. In UX, the endowment effect is leveraged through free trials that allow users to 'own' a feature or service before committing, through customization that creates personal investment, and through data accumulation that makes leaving feel like a loss.",
+    examples: [
+      {
+        title: "Free trial conversions",
+        detail:
+          "A 30-day free trial that gives users full product access — rather than a limited demo — allows users to become 'owners' of the experience. The data they create, the preferences they set, and the workflows they build during the trial are now possessions. Canceling means losing all of that, making conversion psychologically easier than starting fresh.",
+      },
+      {
+        title: "Profile and customization investment",
+        detail:
+          "A user who has spent time customizing their profile picture, bio, notification preferences, and dashboard layout values the account more than one who signed up five minutes ago. This investment creates switching costs that are partly psychological — leaving means losing a 'possession' they've shaped.",
+      },
+      {
+        title: "Gamification and earned status",
+        detail:
+          "Earned badges, streak counts, and loyalty tiers feel like possessions. A user who has maintained a 90-day reading streak values that streak — and the platform that holds it — more than a new user would value a promise of the same. The endowment effect makes earned status a powerful retention mechanism.",
+      },
+    ],
+    userImpact:
+      "Let users invest in your product — through customization, data creation, and earned status — and the endowment effect will make leaving feel like a loss. Free trials convert better than demos because ownership, even temporary, creates attachment. Design onboarding to generate investment early.",
+    origin: "Richard Thaler, 1980; Kahneman, Knetsch & Thaler, 1991",
+  },
+  {
+    id: "maya-principle",
+    name: "MAYA Principle",
+    category: "Design",
+    tagline: "The most successful designs are the Most Advanced Yet Acceptable — too novel fails, too familiar bores.",
+    description:
+      "The MAYA Principle — Most Advanced Yet Acceptable — was articulated by industrial designer Raymond Loewy, who shaped some of the most iconic designs of the 20th century (the Coca-Cola bottle, the Lucky Strike pack, the Studebaker). Loewy observed that consumers are torn between two competing forces: neophilia (attraction to the novel and new) and neophobia (resistance to the unfamiliar and risky). Successful design threads this tension — it must be advanced enough to feel fresh and exciting, yet familiar enough to be immediately accepted and understood. Designs that are too novel face rejection because the cognitive gap between expectation and reality is too large. Designs that are too familiar feel stale and fail to attract attention.",
+    examples: [
+      {
+        title: "Automotive design evolution",
+        detail:
+          "Successful car designs evolve incrementally — each generation advances the aesthetic but remains recognizable as a continuation of the previous model. Radically novel concepts shown at auto shows rarely reach production in that form; the market-ready version is always pulled back toward the acceptable end of the spectrum.",
+      },
+      {
+        title: "App redesign strategy",
+        detail:
+          "When a major app redesigns its navigation — say, moving from a bottom tab bar to a sidebar — gradual rollout with visual continuity reduces rejection. Full overnight redesigns violate the MAYA principle by maximizing novelty at the cost of familiarity, and historically generate negative user reactions even when the new design is objectively better.",
+      },
+      {
+        title: "Skeuomorphic to flat design transition",
+        detail:
+          "The design industry's shift from skeuomorphic interfaces (textured leather, paper-like calendars) to flat design (iOS 7) followed MAYA dynamics over time. Early flat design retained familiar icons and mental models while discarding the texture — the advancement was real but landed within an acceptable range of the familiar.",
+      },
+    ],
+    userImpact:
+      "Innovation that outpaces user acceptance fails at adoption even if it is technically superior. Design for the leading edge of what your current user base can absorb — and move that edge gradually. The goal is not the maximum possible novelty, but the maximum novelty that the market will accept right now.",
+    origin: "Raymond Loewy, 1951",
+  },
+  {
+    id: "principle-of-least-astonishment",
+    name: "Principle of Least Astonishment",
+    category: "Design",
+    tagline: "Systems should behave in ways that least surprise the user — match expectations from prior experience.",
+    description:
+      "The Principle of Least Astonishment (also called the Principle of Least Surprise) states that a system should behave in a way that is consistent with user expectations — derived from prior experience with similar systems, conventions in the domain, and behavior established elsewhere within the same product. When a system behaves unexpectedly, cognitive resources are diverted from the user's actual task to resolving the surprise. Violations range from minor (a button icon that doesn't match its label) to severe (destructive actions that proceed without confirmation, or saving actions that silently fail). The principle is foundational to interface consistency, predictability, and trust.",
+    examples: [
+      {
+        title: "Keyboard shortcut conventions",
+        detail:
+          "Users expect Ctrl+Z to undo, Ctrl+S to save, and Ctrl+C to copy across every application. An application that remaps these shortcuts to different functions — even for good reasons — violates least astonishment and generates immediate frustration. The cost of retraining ingrained reflexes is too high to justify the deviation.",
+      },
+      {
+        title: "Form submission feedback",
+        detail:
+          "A form that silently succeeds — returning the user to a blank form with no confirmation message — violates the principle. Users have internalized the convention of success messages and error states. Silent success is indistinguishable from silent failure, causing users to re-submit or assume their data was lost.",
+      },
+      {
+        title: "External link behavior",
+        detail:
+          "Links that open in a new tab when the user expects in-tab navigation — or vice versa — are minor violations that accumulate. A user who clicks 'Help' and is deposited in a new tab loses their sense of navigation state. Consistent and predictable link behavior across a product reduces disorientation.",
+      },
+    ],
+    userImpact:
+      "Every unexpected behavior diverts cognitive resources from the user's task to resolving their surprise. Consistent, convention-respecting interfaces let users operate on autopilot for routine interactions, reserving deliberate attention for genuinely novel challenges.",
+    origin: "Computing and UX convention; widely attributed in software design literature",
+  },
+  {
+    id: "selective-attention",
+    name: "Selective Attention",
+    category: "Attention",
+    tagline: "The brain actively filters sensory input, focusing on relevant stimuli and suppressing the rest.",
+    description:
+      "Selective attention is the cognitive process by which the brain prioritizes certain environmental stimuli for conscious processing while suppressing others. The classic demonstration — Cherry's Cocktail Party Effect (1953) — showed that people can follow one conversation in a noisy room while filtering out others, yet still detect their own name mentioned in a filtered channel. The brain is not a passive recorder; it is an active filter shaped by current goals, expectations, and salience. In UI design, selective attention means users do not see everything on the screen — they see what they are looking for, and they miss what they are not. This is why 'banner blindness', unread tooltips, and ignored warning dialogs exist: the content is visible but filtered out by the attentional system.",
+    examples: [
+      {
+        title: "Banner blindness",
+        detail:
+          "Users routinely fail to see advertisements and UI elements styled to look like advertisements — even when those elements are positioned prominently. The brain has learned that content in typical banner locations is irrelevant to the current task and preemptively filters it. Important UI elements placed in ad-like positions inherit this suppression.",
+      },
+      {
+        title: "Task-focused tunnel vision",
+        detail:
+          "Users filling out a purchase form are focused on the form fields. Navigation menus, promotional banners, and secondary content in the surrounding layout are not processed. Eye-tracking studies show near-zero fixations on elements outside the task-relevant area during focused tasks. Critical information must be placed inside the task flow, not adjacent to it.",
+      },
+      {
+        title: "Error message placement",
+        detail:
+          "An error summary displayed at the top of a long form may go entirely unnoticed by a user who has just scrolled to the bottom to click Submit. Their attention is on the button and the fields near it. Inline errors adjacent to the relevant field intercept attention where it already is, dramatically improving error resolution rates.",
+      },
+    ],
+    userImpact:
+      "Users do not see your interface — they see a filtered version shaped by their current goals. Design for attention, not visibility: place critical information inside the task flow, use motion and contrast to trigger preattentive capture for genuinely important alerts, and do not assume that visible equals seen.",
+    origin: "Cherry's Cocktail Party Effect, 1953; Broadbent's Filter Model, 1958",
+  },
+  {
+    id: "change-blindness",
+    name: "Change Blindness",
+    category: "Attention",
+    tagline: "Users routinely miss changes to visual scenes, especially during transitions or interruptions.",
+    description:
+      "Change blindness is the failure to detect changes in a visual scene when those changes occur during a brief interruption, transition, or distraction — even when the changes are large and obvious in hindsight. Landmark studies by Simons and Levin (1997) demonstrated that participants in a real-world conversation failed to notice when the person they were speaking to was replaced by a different person during a brief interruption. The phenomenon arises because the visual system does not maintain a detailed internal representation of the entire scene; it samples selectively and fills in the rest. Transitions — page loads, animations, scrolling — reset this sampling and allow changes to slip through undetected.",
+    examples: [
+      {
+        title: "Unnoticed UI state changes",
+        detail:
+          "A status badge that flips from 'Processing' to 'Complete' while the user is reading a paragraph elsewhere on the page will go unnoticed by most users. Without an animation or a visual signal that draws attention to the change at the moment it occurs, users will miss the transition entirely and re-check or re-submit.",
+      },
+      {
+        title: "Page refresh content updates",
+        detail:
+          "A dashboard that silently refreshes data in place — prices, stock levels, notification counts — while the user is scrolling will frequently leave users looking at stale values. Changes that occur without an explicit visual event (flash, animation, badge count) are vulnerable to change blindness.",
+      },
+      {
+        title: "A/B test invisibility",
+        detail:
+          "Change blindness explains why users often do not consciously notice design changes between A/B test variants — even when the changes are substantial. If the change is not in the user's current attentional focus during the transition to the new state, it goes unregistered. Users adapt to new designs faster than they report noticing the change.",
+      },
+    ],
+    userImpact:
+      "State changes must be animated, highlighted, or signaled at the moment they occur to enter conscious perception. Silent updates, reloads, and transitions that alter UI state without a corresponding visual event will be missed, causing confusion when users notice the changed state does not match their mental model of what they last saw.",
+    origin: "Simons & Levin, 1997; Rensink, O'Regan & Clark, 1997",
+  },
+  {
+    id: "stroop-effect",
+    name: "Stroop Effect",
+    category: "Cognitive",
+    tagline: "Conflicting visual or semantic information causes interference and slows processing.",
+    description:
+      "The Stroop Effect, demonstrated by John Ridley Stroop in 1935, is the finding that response time increases significantly when processing a stimulus requires ignoring conflicting information. In the classic task, participants name the ink color of color words (the word 'RED' printed in blue ink) and are reliably slower than when naming the ink color of non-conflicting stimuli. The interference occurs because reading is highly automatic — it activates semantic meaning involuntarily, creating competition with the intentional task of color-naming. In UX, Stroop-like interference occurs whenever visual presentation conflicts with meaning: a red 'success' message, a disabled-looking button that is actually active, or an icon that metaphorically contradicts its label.",
+    examples: [
+      {
+        title: "Color-meaning conflicts",
+        detail:
+          "A form validation message styled in green text that says 'Error: invalid email' creates Stroop-like interference — the semantic content (error) conflicts with the color association (green = success). Users take measurably longer to process the message and are more likely to misread or dismiss it. Align color convention with semantic meaning.",
+      },
+      {
+        title: "Icon and label mismatch",
+        detail:
+          "A button labeled 'Delete' with an icon that resembles a save disk creates conflicting signals. The icon activates a 'save' interpretation automatically; the label says 'delete'. The conflict increases processing time and error rates — users who rely on icon scanning will click expecting one outcome and get another.",
+      },
+      {
+        title: "Disabled styling on active elements",
+        detail:
+          "Interactive elements styled to look disabled — low contrast, grayed-out appearance — create Stroop-like interference between affordance (visual appearance suggests non-interactive) and behavior (the element is actually clickable). Users avoid interacting with them, reducing engagement with intended features.",
+      },
+    ],
+    userImpact:
+      "Every conflict between visual signal and semantic meaning adds processing overhead and increases error rates. Ensure that color, iconography, typography weight, and positional conventions consistently reinforce — never contradict — the meaning of interface elements.",
+    origin: "John Ridley Stroop, 1935",
+  },
+  {
+    id: "emotional-design",
+    name: "Emotional Design",
+    category: "Emotion",
+    tagline: "Products operate on three levels — visceral (appearance), behavioral (usability), and reflective (meaning) — each shaping satisfaction differently.",
+    description:
+      "Emotional Design, articulated by Don Norman in his 2003 book of the same name, proposes that human response to products operates on three distinct levels. The visceral level is immediate, automatic, and sensory — it is the gut reaction to how something looks, sounds, and feels before any interaction. The behavioral level is about usability and function — the pleasure of a well-designed interaction that feels smooth and effective. The reflective level is conscious and interpretive — it involves self-image, meaning, and the story users tell themselves about what using a product says about them. All three levels operate simultaneously and influence each other. A beautiful product (visceral) is perceived as more usable (behavioral); a product that aligns with self-image (reflective) generates loyalty that tolerates behavioral shortcomings.",
+    examples: [
+      {
+        title: "Luxury product visceral response",
+        detail:
+          "Apple's product packaging is a visceral design artifact — the weight of the box, the resistance of the lid, the precise fit of components. These properties generate a positive emotional response before the product is even turned on, priming users to perceive the experience favorably. Visceral design shapes expectation and sets the emotional baseline.",
+      },
+      {
+        title: "Micro-interaction delight",
+        detail:
+          "A task management app's satisfying animation when a task is checked off — a brief particle burst, a smooth strikethrough — operates at the behavioral and visceral levels simultaneously. The interaction functions correctly (behavioral) but also feels rewarding (visceral), increasing the likelihood of continued engagement.",
+      },
+      {
+        title: "Brand identity and self-image",
+        detail:
+          "Users who drive a Tesla or carry a Moleskine are partly purchasing a reflective design experience — the product communicates something about who they are. Digital products achieve the same effect through brand personality, voice, and values alignment. Duolingo's playful irreverence, Notion's minimalist aesthetic, and Figma's collaborative identity each target a specific reflective response.",
+      },
+    ],
+    userImpact:
+      "Products that engage all three levels — visceral beauty, behavioral fluency, and reflective meaning — generate the strongest loyalty and word-of-mouth. Optimizing only for usability (behavioral) misses two-thirds of the emotional equation. Users forgive behavioral friction in products they love at the visceral and reflective levels; they abandon functionally correct products that feel emotionally empty.",
+    origin: "Don Norman, 2003",
   },
 ]
 
